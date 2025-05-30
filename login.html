@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+    </style>
+    <link rel="stylesheet" href="./style/login.css">
+</head>
+<body>
+    <header class="header-login">
+        <nav class="navegue container">
+            <ul id="links">
+                <li id="logo"><a href="./index.html"><img src="./imgs/logo.svg" alt=""></a></li>
+                <li>
+                    <ul id="links-icone">
+                        <li><a href="./cadastro.html"> <img src="./imgs/entrar.png" alt="" class="icone"></a></li>
+                        <li><a href="#"><img src="./imgs/contatos.png" alt="" class="icone"></a></li>
+                        <li><a href="#"><img src="./imgs/calendario.png" alt="" class="icone"></a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+        <main>
+            <section id="texto-lateral">
+                <div id="container">
+                    <div id="texto-lateral-paragrafo">
+                        <h1>Aproveite!</h1>
+                        <ul id="beneficios">
+                            <li>faça reservas,</li>
+                            <li>tenha promoções de aniversario,</li>
+                            <li>acesso a conteudos exclusivos</li>
+                            <li> e muito mais!</li>
+                        </ul>
+                        <div id="texto-lateral-imagens">
+                            <img src="./imgs/anel.png" alt="">
+                            <img src="./imgs/cerveja.png" alt="">
+                            <img src="./imgs/caldo.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            
+        
+        <section id="form">
+            <div id="container">
+                 <form action="" id="login">
+                    <h1>Acesse a sua conta</h1>
+                    <div class="campos">
+                        <label for="email">Email</label>
+                        <input type="email" name="email" id="email" placeholder="Digite seu Email" required>
+                        <label for="senha">Senha</label>
+                        <input type="password" name="senha" id="senha" placeholder="Digite sua Senha" required>  
+                    </div>
+                    <button type="submit">Entrar</button>
+                    <div id="cadastro">
+                        <h5>Não tem uma conta?</h5>
+                        <a href="./cadastro.html">Faça o seu cadastro</a>
+                    </div>
+                </form>   
+            </div>
+
+        </section>       
+    </main>
+</body>
+<script src="./js/login.js"></script>
+</html>
