@@ -96,7 +96,7 @@ select {
   cursor: pointer;
 }
 
-.busca {
+#busca {
   position: relative;
   display: flex;
   align-items: center;
@@ -105,7 +105,7 @@ select {
   margin: 30px auto 0;
 }
 
-.busca #lupa {
+#busca .lupa {
   position: absolute;
   top: 55%;
   left: 12px;
@@ -113,27 +113,32 @@ select {
   color: var(--marrom);
   font-size: 18px;
   pointer-events: none;
+  border: none;
+  background-color: transparent;
 }
 
-.busca #clear-btn {
+#busca .clear-btn {
   position: absolute;
-  top: 60%;
+  top: 55%;
   right: 12px;
   transform: translateY(-50%);
   font-size: 18px;
   color: var(--marrom);
   cursor: pointer;
   display: none;
+  border: none;
+  background-color: transparent;
 }
 
 input[type="search"]::-webkit-search-cancel-button {
   display: none;
 }
 
-.busca input {
+#busca input {
   width: 100%;
   height: 40px;
-  padding-left: 35px;
+  padding-left: 15%;
+  padding-right: 15%;
   text-align: center;
   font-size: 16px;
   border: 1px solid #ccc;
@@ -207,17 +212,12 @@ td.acoes {
   transform: scale(1.1);
 }
 
-/* Arredondar as bordas superiores dos cabeçalhos */
-th:first-child {
-  border-top-left-radius: 10px;
+table {
+  border-collapse: separate;
+  border-spacing: 0 2px;
+  border-radius: 10px;
+  overflow: hidden;
 }
-
-th:last-child {
-  border-top-right-radius: 10px;
-}
-
-/* Arredondar as bordas inferiores do último item da tabela */
-
 
 .nome-anexo {
   margin-top: 5px;

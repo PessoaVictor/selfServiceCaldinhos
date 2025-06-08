@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const buscaInput = document.getElementById("busca");
-  const clearBtn = document.getElementById("clear-btn");
+  const buscaInput = document.querySelector('#busca input[type="search"]');
+  const clearBtn = document.querySelector("#busca .clear-btn");
   const form = document.getElementById("form-cardapio");
   const tabela = document.getElementById("tabela-cardapio");
   const imagemInput = document.getElementById("imagem");
