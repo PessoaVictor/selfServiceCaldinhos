@@ -1,25 +1,24 @@
 document.getElementById("submit").addEventListener("submit", function (event) {
     event.preventDefault();
-    alert("oi");
     let listaCadastro = JSON.parse(localStorage.getItem('usuariosCadastrados')) || [];
     let cadastrado = false;
 
-    const data = document.getElementById("data").value;
-    const email = document.getElementById("email").value;
+    const data = document.getElementById("data").value.trim();
+    const email = document.getElementById("email").value.trim();
     const senha = document.getElementById("senha").value;
-    const telefone = document.getElementById("telefone").value;
+    const telefone = document.getElementById("telefone").value.trim();
     const hoje = new Date();
     const [ano, mes, dia] = data.split('-');
 
-    if(senha.length < 8){
-        alert("sua senha deve ter pelo menos 8 caracteres");
+    if(!/^(?=.*[A-Za-z])(?=.*\d).{8,}$/.test(senha)){
+        alert("sua senha deve ter pelo menos 8 caracteres com 1 letra e 1 número");
         return;
     }
-    if(telefone.length < 15){
-        alert("coloque o número completo");
+    if(!/^\(\d{2}\) 9\d{4}-\d{4}$/.test(telefone)){
+        alert("coloque o número no formato certo. ex: (81) 97372-5212");
         return;
     }
-    if (ano > hoje.getFullYear() || (hoje.getFullYear()-ano) >= 125) {
+    if(ano > hoje.getFullYear() || (hoje.getFullYear()-ano) >= 125) {
         alert("A data não pode ser no futuro ou com a idade maior que 125 anos");
         return;
     }
@@ -31,18 +30,14 @@ document.getElementById("submit").addEventListener("submit", function (event) {
         telefone: telefone,
     };
 
-    listaCadastro.forEach(element => {
-        if(element.email == usuario.email){
-            alert("o email já está cadastrado");
-            cadastrado = true;
-            return;
-        }
-    });
-
+    cadastrado = listaCadastro.some(elemento => elemento.email == usuario.email);
+    
     if(cadastrado !== true){
         listaCadastro.push(usuario);
         localStorage.setItem('usuariosCadastrados', JSON.stringify(listaCadastro));
         alert("Cadastro feito com sucesso!");
         window.location.href = "login.html";
+    }else{
+        alert("o email já está cadastrado");
     }
 });

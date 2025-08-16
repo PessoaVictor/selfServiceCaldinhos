@@ -54,7 +54,7 @@
                         <label for="email">Email</label>
                         <input type="email" name="email" id="email" placeholder="Digite seu Email" required>
                         <label for="senha">Senha</label>
-                        <input type="password" name="senha" id="senha" placeholder="Digite sua Senha" required>  
+                        <input type="password" name="senha" id="senha" placeholder="Digite sua Senha" minlength="8" pattern="^^(?=.*[A-Za-z])(?=.*\d).{8,}$" title="sua senha deve conter 8 caracteres com letras e números" required>  
                     </div>
                     <button type="submit">Entrar</button>
                     <div id="cadastro">
