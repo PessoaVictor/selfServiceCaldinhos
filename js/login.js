@@ -1,25 +1,21 @@
 document.getElementById("login").addEventListener("submit", function (event) {
     event.preventDefault();
-    let email = document.getElementById("email").value;
-    let senha = document.getElementById("senha").value;
-    let mensagemErro = '';
+    const email = document.getElementById("email").value.trim();
+    const senha = document.getElementById("senha").value;
 
     let listaCadastro = JSON.parse(localStorage.getItem('usuariosCadastrados')) || [];
     let login = JSON.parse(sessionStorage.getItem('usuarioLogado')) || [];
 
-    listaCadastro.forEach(element => {
-        if (element.email === email && element.senha === senha) {
+    cadastrado = listaCadastro.some(elemento => elemento.email == email && elemento.senha == senha);
+
+    if(cadastrado){
             if(login.length>0){
                 login = []
             }
 
-            mensagemErro = 'ok'
-            let emailDigitado = element.email;
-            let passwordDigitado = element.senha;
-
                 let loginDados = {
-                    email: emailDigitado,
-                    senha: passwordDigitado
+                    email: email,
+                    senha: senha
                 };
                 
                 login.push(loginDados);
@@ -35,12 +31,9 @@ document.getElementById("login").addEventListener("submit", function (event) {
                     } else {
                         window.location.href = document.referrer;
                     }
-                }
+                
         }
-       
-    });
-    if(mensagemErro !== 'ok'){
+    }else{
         alert("Email ou senha incorretos!");
     }
-    
 });

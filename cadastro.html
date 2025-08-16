@@ -45,7 +45,7 @@
                             <label for="email">Email</label>
                             <input type="email" name="email" id="email" placeholder="Digite seu Email" required>
                             <label for="senha">Senha</label>
-                            <input type="password" name="senha" id="senha" placeholder="Digite sua Senha" minlength="8" required>
+                            <input type="password" name="senha" id="senha" placeholder="Digite sua Senha" minlength="8" pattern="^^(?=.*[A-Za-z])(?=.*\d).{8,}$" title="sua senha deve conter 8 caracteres com letras e números" required>
                             <label for="telefone">Telefone</label>
                             <input type="text" name="telefone" id="telefone" placeholder="Digite seu Telefone" onkeyup="mascara('(##) #####-####',this,event,true)" minlength="15" required>
                             <label for="data">Data de nascimento</label>
