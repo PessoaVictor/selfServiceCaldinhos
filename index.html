@@ -1,279 +1,1172 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Self Service Caldinhos</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
-    </style>
-    <link rel="stylesheet" href="./style/login.css">
-    <link rel="stylesheet" href="./style/cadastro.css">
-    <link rel="stylesheet" href="./style/menu.css">
-    <link rel="stylesheet" href="./public/Style.css">
-    <link rel="stylesheet" href="./style.css">
-    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/3.0.0/uicons-bold-rounded/css/uicons-bold-rounded.css">
-    <style>
-        /* Estilos para navegação entre seções */
-        .section {
-            display: none;
-        }
-        .section.active {
-            display: block;
-        }
-        
-        /* Melhorias na navegação */
-        #links-icone li {
-            transition: transform 0.2s;
-            cursor: pointer;
-        }
-        
-        #links-icone li:hover {
-            transform: scale(1.1);
-        }
-        
-        /* Botão ativo */
-        .nav-active {
-            opacity: 0.7;
-            transform: scale(0.95);
-        }
-        
-        /* Ajustes para evitar conflitos de CSS */
-        body {
-            margin: 0;
-            padding: 0;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Irani & Toinho - Self-Service de Caldinhos</title>
+    <link rel="preload" href="./assets/luego.png" as="image">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800&family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style/bar-design.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <meta name="description" content="Irani & Toinho - O melhor self-service de caldinhos. Caldinho de feijão, camarão, e muito mais em um ambiente acolhedor.">
+    <meta name="keywords" content="caldinho, barzinho, self-service, feijão, camarão, petiscos, Irani, Toinho">
+    <meta name="author" content="Irani & Toinho">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Irani & Toinho - Self-Service de Caldinhos">
+    <meta property="og:description" content="O melhor self-service de caldinhos da região em um ambiente acolhedor e moderno">
+    <link rel="icon" type="image/png" href="./assets/luego.png">
 </head>
 <body>
-    <header class="header-login">
-        <nav class="navegue container">
-            <ul id="links">
-                <li id="logo"><a href="#" onclick="showSection('login')"><img src="./imgs/logo.svg" alt=""></a></li>
-                <li>
-                    <ul id="links-icone">
-                        <li><a href="#" onclick="showSection('login')" title="Login"><img src="./imgs/entrar.png" alt="" class="icone"></a></li>
-                        <li><a href="#" onclick="showSection('cadastro')" title="Cadastro"><img src="./imgs/contatos.png" alt="" class="icone"></a></li>
-                        <li><a href="#" onclick="showSection('menu')" title="Cardápio"><img src="./imgs/calendario.png" alt="" class="icone"></a></li>
-                        <li><a href="#" onclick="showSection('admin')" title="Gerenciar" style="font-size: 20px;">⚙️</a></li>
-                        <li><a href="#" onclick="showSection('galeria')" title="Galeria" style="font-size: 20px;">🖼️</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
+    <header class="bar-header" id="header">
+        <div class="header-container">
+            <button class="bar-logo" onclick="showSection('home')" aria-label="Voltar ao início">
+                <img src="./assets/luego.png" alt="Logo Irani & Toinho" class="logo-img">
+                <div class="logo-text">
+                    <div class="logo-main">Irani & Toinho</div>
+                    <div class="logo-sub">Self-Service de Caldinhos</div>
+                </div>
+            </button>
+            <nav class="bar-nav">
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <button onclick="showSection('home')" data-section="home" class="nav-link active" type="button">Início</button>
+                    </li>
+                    <li class="nav-item">
+                        <button onclick="showSection('cardapio')" data-section="cardapio" class="nav-link" type="button">Cardápio</button>
+                    </li>
+                    <li class="nav-item">
+                        <button onclick="showSection('sobre')" data-section="sobre" class="nav-link" type="button">Sobre</button>
+                    </li>
+                    <li class="nav-item">
+                        <button onclick="showSection('localizacao')" data-section="localizacao" class="nav-link" type="button">Localização</button>
+                    </li>
+                </ul>
+                <div class="nav-auth">
+                    <button id="user-area-btn" class="btn btn-ghost" onclick="goToUserArea()" style="display: none; margin-right: 1rem;">
+                        <i class="fas fa-tachometer-alt"></i>
+                        Minha Área
+                    </button>
+                    <button class="btn btn-ghost" onclick="openAuthModal()">
+                        <i class="fas fa-user"></i>
+                        Entrar
+                    </button>
+                    <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </nav>
+        </div>
     </header>
 
-    <!-- SEÇÃO LOGIN -->
-    <section id="login-section" class="section active">
-        <main>
-            <section id="texto-lateral">
-                <div id="container">
-                    <div id="texto-lateral-paragrafo">
-                        <h1>Aproveite!</h1>
-                        <ul id="beneficios">
-                            <li>faça reservas,</li>
-                            <li>tenha promoções de aniversario,</li>
-                            <li>acesso a conteudos exclusivos</li>
-                            <li> e muito mais!</li>
-                        </ul>
-                        <div id="texto-lateral-imagens">
-                            <img src="./imgs/anel.png" alt="">
-                            <img src="./imgs/cerveja.png" alt="">
-                            <img src="./imgs/caldo.png" alt="">
-                        </div>
+    <div class="mobile-nav" id="mobile-nav">
+        <button class="mobile-nav-close" onclick="toggleMobileMenu()">
+            <i class="fas fa-times"></i>
+        </button>
+        <button onclick="showSection('home'); toggleMobileMenu()" data-section="home" class="nav-link active">Início</button>
+        <button onclick="showSection('cardapio'); toggleMobileMenu()" data-section="cardapio" class="nav-link">Cardápio</button>
+        <button onclick="showSection('sobre'); toggleMobileMenu()" data-section="sobre" class="nav-link">Sobre</button>
+        <button onclick="showSection('localizacao'); toggleMobileMenu()" data-section="localizacao" class="nav-link">Localização</button>
+        <button id="mobile-user-area-btn" class="btn btn-ghost" onclick="goToUserArea(); toggleMobileMenu()" style="display: none;">
+            <i class="fas fa-tachometer-alt"></i>
+            Minha Área
+        </button>
+        <button class="btn btn-ghost" onclick="openAuthModal(); toggleMobileMenu()">
+            <i class="fas fa-user"></i>
+            Entrar
+        </button>
+    </div>
+    <main class="main-content">
+        <section id="home-section" class="section active">
+            <div class="hero">
+                <div class="hero-content" data-aos="fade-up" data-aos-delay="100">
+                    <h1 class="hero-title" data-aos="fade-up" data-aos-delay="200">Irani & Toinho</h1>
+                    <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="300">O melhor self-service de caldinhos da região em um ambiente acolhedor e agradável</p>
+                    <div class="hero-actions" data-aos="fade-up" data-aos-delay="400">
+                        <button class="btn btn-primary" onclick="showSection('cardapio')">
+                            <i class="fas fa-utensils"></i>
+                            Ver Cardápio
+                        </button>
+                        <button class="btn btn-secondary" onclick="showSection('sobre')">
+                            <i class="fas fa-heart"></i>
+                            Nossa História
+                        </button>
                     </div>
                 </div>
-            </section>
-        
-            <section id="form">
-                <div id="container">
-                     <form action="" id="login-form">
-                        <h1>Acesse a sua conta</h1>
-                        <div class="campos">
-                            <label for="email">Email</label>
-                            <input type="email" name="email" id="email" placeholder="Digite seu Email" required>
-                            <label for="senha">Senha</label>
-                            <input type="password" name="senha" id="senha" placeholder="Digite sua Senha" required>  
+            </div>
+            <div class="features">
+                <div class="features-grid">
+                    <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="feature-icon">
+                            <i class="fas fa-fire"></i>
                         </div>
-                        <button type="submit">Entrar</button>
-                        <div id="cadastro">
-                            <h5>Não tem uma conta?</h5>
-                            <a href="#" onclick="showSection('cadastro')">Faça o seu cadastro</a>
+                        <h3 class="feature-title">Caldinhos Tradicionais</h3>
+                        <p class="feature-description">Receitas caseiras preparadas com ingredientes frescos e muito carinho, como feijão preto, camarão e muito mais.</p>
+                    </div>
+                    <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="feature-icon">
+                            <i class="fas fa-clock"></i>
                         </div>
-                    </form>   
+                        <h3 class="feature-title">Self-Service</h3>
+                        <p class="feature-description">Sirva-se à vontade! Nosso sistema self-service permite que você escolha a quantidade ideal para seu apetite.</p>
+                    </div>
+                    <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="feature-icon">
+                            <i class="fas fa-beer"></i>
+                        </div>
+                        <h3 class="feature-title">Ambiente Descontraído</h3>
+                        <p class="feature-description">Atmosfera acolhedora de barzinho com música ambiente, perfeito para relaxar e bater papo com os amigos.</p>
+                    </div>
+                    <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
+                        <div class="feature-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h3 class="feature-title">Qualidade Premium</h3>
+                        <p class="feature-description">Ingredientes selecionados e preparo artesanal garantem sabores únicos e qualidade incomparável.</p>
+                    </div>
                 </div>
-            </section>       
-        </main>
-    </section>
+            </div>
+        </section>
 
-    <!-- SEÇÃO CADASTRO -->
-    <section id="cadastro-section" class="section">
-        <main>
-            <div id="geral">
-                <section id="texto-lateral">
-                    <div id="container">
-                        <div id="texto-lateral-conteudo">
-                                <div id="beneficios">
-                                        <p id="texto-lateral-paragrafo">Cadastre-se e seja o <strong>primeiro a saber de tudo</strong> que preparamos com carinho <strong>para você</strong>!</p>
-                                </div>
+        <section id="cardapio-section" class="section">
+            <div class="container">
+                <div style="text-align: center; margin-bottom: 3rem; padding: 2rem 0;" data-aos="fade-up">
+                    <h1>Nosso Cardápio</h1>
+                    <p style="font-size: 1.25rem; color: var(--gray-600); max-width: 600px; margin: 0 auto;">
+                        Descubra os sabores autênticos dos nossos caldinhos e petiscos especiais
+                    </p>
+                </div>
+                <div style="max-width: 500px; margin: 0 auto 3rem;" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card" style="padding: 1.5rem;">
+                        <div style="display: flex; gap: 1rem;">
+                            <input type="search" placeholder="Pesquisar pratos..." class="form-input" style="flex: 1;" id="search-menu" oninput="filterMenu(this.value)" onkeyup="filterMenu(this.value)">
+                            <button class="btn btn-primary" onclick="filterMenu(document.getElementById('search-menu').value)">
+                                <i class="fas fa-search"></i>
+                            </button>
                         </div>
                     </div>
-                </section>
-            
-                <section id="form">
-                    <div id="container">
-                        <form action="" id="cadastro-form">
-                            <h1>Cadastre-se</h1>
-                            <div class="campos">
-                                <label for="email-cadastro">Email</label>
-                                <input type="email" name="email" id="email-cadastro" placeholder="Digite seu Email" required>
-                                <label for="senha-cadastro">Senha</label>
-                                <input type="password" name="senha" id="senha-cadastro" placeholder="Digite sua Senha" minlength="8" required>
-                                <label for="telefone">Telefone</label>
-                                <input type="text" name="telefone" id="telefone" placeholder="Digite seu Telefone" onkeyup="mascara('(##) #####-####',this,event,true)" minlength="15" required>
-                                <label for="data">Data de nascimento</label>
-                                <input type="date" name="data" id="data" placeholder="Digite sua Data de nascimento" required>
+                </div>
+                <div class="menu-grid" id="menu-grid">
+                    <div class="menu-item" data-aos="fade-up" data-aos-delay="100">
+                        <div class="card menu-card">
+                            <div class="menu-image" style="background-image: url('./assets/cardapio/feijao.jpg'); background-size: cover; background-position: center;">
+                                <span class="menu-price">R$ 18,90</span>
                             </div>
-                            <button type="submit">Cadastrar</button>
-                            <div id="cadastro">
-                                <h5>já tem uma conta?</h5>
-                                <a href="#" onclick="showSection('login')">Fazer login</a>
+                            <div class="menu-info">
+                                <h3 class="menu-title">Caldinho de Feijão</h3>
+                                <p class="menu-description">O tradicional caldinho de feijão preto temperado com bacon, linguiça calabresa e temperos especiais da casa.</p>
+                                <div class="menu-tags">
+                                    <span class="menu-tag">Caldinho</span>
+                                    <span class="menu-tag popular">Popular</span>
+                                </div>
                             </div>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item" data-aos="fade-up" data-aos-delay="200">
+                        <div class="card menu-card">
+                            <div class="menu-image" style="background-image: url('./assets/cardapio/camarao.jpg'); background-size: cover; background-position: center;">
+                                <span class="menu-price">R$ 24,90</span>
+                            </div>
+                            <div class="menu-info">
+                                <h3 class="menu-title">Caldinho de Camarão</h3>
+                                <p class="menu-description">Caldinho cremoso com camarões frescos, leite de coco, dendê e coentro. Uma especialidade da casa!</p>
+                                <div class="menu-tags">
+                                    <span class="menu-tag">Caldinho</span>
+                                    <span class="menu-tag premium">Premium</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item" data-aos="fade-up" data-aos-delay="300">
+                        <div class="card menu-card">
+                            <div class="menu-image" style="background-image: url('./assets/cardapio/marisco.jpg'); background-size: cover; background-position: center;">
+                                <span class="menu-price">R$ 19,90</span>
+                            </div>
+                            <div class="menu-info">
+                                <h3 class="menu-title">Caldinho de Marisco</h3>
+                                <p class="menu-description">Caldinho tradicional pernambucano de Marisco fresco, temperos regionais e um toque especial de coentro.</p>
+                                <div class="menu-tags">
+                                    <span class="menu-tag">Caldinho</span>
+                                    <span class="menu-tag regional">Regional</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item" data-aos="fade-up" data-aos-delay="400">
+                        <div class="card menu-card">
+                            <div class="menu-image" style="background-image: url('./assets/cardapio/peixe.jpg'); background-size: cover; background-position: center;">
+                                <span class="menu-price">R$ 16,90</span>
+                            </div>
+                            <div class="menu-info">
+                                <h3 class="menu-title">Caldinho de Peixe</h3>
+                                <p class="menu-description">Caldinho tradicional com peixe fresco desfiado, batata, cebola e temperos especiais da casa. Sabor do mar em cada colherada.</p>
+                                <div class="menu-tags">
+                                    <span class="menu-tag">Caldinho</span>
+                                    <span class="menu-tag caseiro">Caseiro</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item" data-aos="fade-up" data-aos-delay="100">
+                        <div class="card menu-card">
+                            <div class="menu-image" style="background-image: url('./assets/cardapio/cerveja.jpg'); background-size: cover; background-position: center;">
+                                <span class="menu-price">R$ 4,50</span>
+                            </div>
+                            <div class="menu-info">
+                                <h3 class="menu-title">Cerveja Gelada</h3>
+                                <p class="menu-description">Cerveja long neck gelada. Várias marcas disponíveis: Original, Skol, Brahma, Heineken.</p>
+                                <div class="menu-tags">
+                                    <span class="menu-tag">Bebida</span>
+                                    <span class="menu-tag gelada">Gelada</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item" data-aos="fade-up" data-aos-delay="200">
+                        <div class="card menu-card">
+                            <div class="menu-image" style="background-image: url('./assets/cardapio/caipirinha.jpg'); background-size: cover; background-position: center;">
+                                <span class="menu-price">R$ 12,90</span>
+                            </div>
+                            <div class="menu-info">
+                                <h3 class="menu-title">Caipirinha da Casa</h3>
+                                <p class="menu-description">Caipirinha especial com cachaça artesanal, limão fresco e açúcar cristal. Refrescante e saborosa!</p>
+                                <div class="menu-tags">
+                                    <span class="menu-tag">Bebida</span>
+                                    <span class="menu-tag premium">Premium</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item" data-aos="fade-up" data-aos-delay="300">
+                        <div class="card menu-card">
+                            <div class="menu-image" style="background-image: url('./assets/cardapio/drink.jpg'); background-size: cover; background-position: center;">
+                                <span class="menu-price">R$ 15,90</span>
+                            </div>
+                            <div class="menu-info">
+                                <h3 class="menu-title">Drink de Morango</h3>
+                                <p class="menu-description">Drink refrescante com morango fresco, vodka, açúcar e gelo. Especialidade para aniversariantes!</p>
+                                <div class="menu-tags">
+                                    <span class="menu-tag">Bebida</span>
+                                    <span class="menu-tag special">Especial</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item" data-aos="fade-up" data-aos-delay="400">
+                        <div class="card menu-card">
+                            <div class="menu-image" style="background-image: url('./assets/cardapio/pudim.jpg'); background-size: cover; background-position: center;">
+                                <span class="menu-price">R$ 8,90</span>
+                            </div>
+                            <div class="menu-info">
+                                <h3 class="menu-title">Pudim de Leite</h3>
+                                <p class="menu-description">Pudim cremoso tradicional com calda de caramelo. Receita especial da casa.</p>
+                                <div class="menu-tags">
+                                    <span class="menu-tag">Sobremesa</span>
+                                    <span class="menu-tag caseiro">Caseiro</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="sobre-section" class="section">
+            <div class="container">
+                <div style="text-align: center; margin-bottom: 3rem; padding: 2rem 0;" data-aos="fade-up">
+                    <h1>Nossa História</h1>
+                    <p style="font-size: 1.25rem; color: var(--gray-600); max-width: 700px; margin: 0 auto;">
+                        Uma tradição familiar que começou na cozinha de casa e se tornou o point dos caldinhos na cidade
+                    </p>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; margin-bottom: 4rem;">
+                    <div data-aos="fade-right" data-aos-delay="100">
+                        <h2 style="color: var(--red-primary); margin-bottom: 1.5rem;">A História de Irani & Toinho</h2>
+                        <p>Em 2015, na movimentada Avenida Perimetral em Olinda, Irani e Toinho deram o primeiro passo em uma jornada de sabor. O que começou como um hobby, compartilhando seus deliciosos caldinhos com amigos e vizinhos, rapidamente se transformou em uma paixão e um negócio de sucesso.</p>
+                        <p>Hoje, 10 anos depois e em nosso novo endereço na Estrada de Lygia Gomes da Silva, continuamos a celebrar as autênticas receitas da culinária pernambucana que nos consagraram. Mantendo a tradição e o carinho em cada prato, nosso bar e restaurante se tornou um ponto de encontro acolhedor e bem frequentado.</p>
+                        <p>Ao longo dos anos, tivemos a honra de receber clientes de toda a região metropolitana do Recife, incluindo personalidades como a governadora de Pernambuco, a prefeita de Olinda, e a cantora Raphaela Santos.</p>
+                        <div style="margin-top: 2rem;">
+                            <button class="btn btn-primary" onclick="showSection('localizacao')">
+                                <i class="fas fa-map-marker-alt"></i>
+                                Nos Visite
+                            </button>
+                        </div>
+                    </div>
+                    <div style="text-align: center;" data-aos="fade-left" data-aos-delay="200">
+                        <div class="card" style="padding: 2rem; background: var(--gradient-hero); color: white;">
+                            <div style="font-size: 3rem; margin-bottom: 1rem;">🍲</div>
+                            <h3 style="color: white; margin-bottom: 1rem;">10 Anos de Tradição</h3>
+                            <p style="color: rgba(255,255,255,0.9); margin-bottom: 2rem;">Servindo os melhores caldinhos da região com o carinho de sempre</p>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem;">
+                                <div style="text-align: center;">
+                                    <div style="font-size: 2rem; font-weight: bold;" data-counter="50" data-suffix="k+">50k+</div>
+                                    <div style="font-size: 0.9rem;">Clientes Atendidos</div>
+                                </div>
+                                <div style="text-align: center;">
+                                    <div style="font-size: 2rem; font-weight: bold;" data-counter="12">12</div>
+                                    <div style="font-size: 0.9rem;">Tipos de Caldinho</div>
+                                </div>
+                                <div style="text-align: center;">
+                                    <div style="font-size: 2rem; font-weight: bold;" data-counter="4.7" data-suffix="⭐">4.7⭐</div>
+                                    <div style="font-size: 0.9rem;">Avaliação Média</div>
+                                </div>
+                                <div style="text-align: center;">
+                                    <div style="font-size: 2rem; font-weight: bold;" data-counter="637" data-suffix="+">637+</div>
+                                    <div style="font-size: 0.9rem;">Avaliações</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h3 class="feature-title">Tradição Familiar</h3>
+                        <p class="feature-description">Receitas passadas de geração em geração, mantendo o sabor autêntico da cozinha brasileira.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <h3 class="feature-title">Ingredientes Frescos</h3>
+                        <p class="feature-description">Selecionamos os melhores ingredientes diariamente para garantir qualidade e sabor únicos.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3 class="feature-title">Ambiente Acolhedor</h3>
+                        <p class="feature-description">Um espaço que une a modernidade com o conforto de casa, perfeito para toda família.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="localizacao-section" class="section">
+            <div class="container">
+                <div style="text-align: center; margin-bottom: 3rem; padding: 2rem 0;">
+                    <h1>Localização</h1>
+                    <p style="font-size: 1.25rem; color: var(--gray-600);">
+                        Venha nos fazer uma visita! Estamos esperando você com muito carinho.
+                    </p>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start;">
+                    <div>
+                        <div class="card" style="margin-bottom: 2rem;">
+                            <div class="card-header">
+                                <h3><i class="fas fa-map-marker-alt"></i> Endereço</h3>
+                            </div>
+                            <div class="card-body">
+                                <p><strong>Estr. Lygia Gomes da Silva, 49</strong></p>
+                                <p>Ouro Preto - Olinda/PE</p>
+                                <p>CEP: 53370-255</p>
+                                <div style="margin-top: 1.5rem;">
+                                    <button class="btn btn-primary" onclick="window.open('https://maps.google.com/?q=Irani+e+Toinho+Self-Service+de+Caldinhos+Olinda+PE', '_blank')">
+                                        <i class="fab fa-google"></i>
+                                        Ver no Google Maps
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card" style="margin-bottom: 2rem;">
+                            <div class="card-header">
+                                <h3><i class="fas fa-clock"></i> Horário de Funcionamento</h3>
+                            </div>
+                            <div class="card-body">
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-bottom: 1rem;">
+                                    <div><strong>Segunda:</strong></div>
+                                    <div>17h às 22h</div>
+                                    <div><strong>Terça:</strong></div>
+                                    <div>17h às 22h</div>
+                                    <div><strong>Quarta:</strong></div>
+                                    <div style="color: var(--red-primary); font-weight: bold;">Fechado</div>
+                                    <div><strong>Quinta:</strong></div>
+                                    <div>17h às 22h</div>
+                                    <div><strong>Sexta:</strong></div>
+                                    <div>17h às 22h</div>
+                                    <div><strong>Sábado:</strong></div>
+                                    <div>17h às 22h</div>
+                                    <div><strong>Domingo:</strong></div>
+                                    <div style="color: var(--red-primary); font-weight: bold;">Fechado</div>
+                                </div>
+                                <div style="padding: 1rem; background: var(--yellow-primary); border-radius: var(--radius-md); color: var(--black-primary); text-align: center; margin-bottom: 1rem;">
+                                    <strong>🎵 Música ao Vivo</strong>
+                                </div>
+                                <div style="padding: 1rem; background: var(--red-primary); border-radius: var(--radius-md); color: white; text-align: center;">
+                                    <strong>🚫 SEM TAXAS:</strong> Sem entrada • Sem couvert • Sem taxa de serviço
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3><i class="fas fa-phone"></i> Contato</h3>
+                            </div>
+                            <div class="card-body">
+                                <p><strong>Telefone:</strong> (81) 99618-2551</p>
+                                <p><strong>WhatsApp:</strong> (81) 99618-2551</p>
+                                <p><strong>Email:</strong> contato@irani-toinho.com.br</p>
+                                <div style="margin-top: 1.5rem; display: flex; gap: 1rem;">
+                                    <button class="btn btn-secondary" onclick="window.open('https://wa.me/5581996182551', '_blank')">
+                                        <i class="fab fa-whatsapp"></i>
+                                        WhatsApp
+                                    </button>
+                                    <button class="btn btn-primary" onclick="window.open('https://www.instagram.com/selfservicedecaldinhos/', '_blank')">
+                                        <i class="fab fa-instagram"></i>
+                                        Instagram
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="card">
+                            <iframe 
+                                src="https://maps.google.com/maps?q=Estr.%20Lygia%20Gomes%20da%20Silva,%2049,%20Ouro%20Preto,%20Olinda,%20PE&t=&z=17&ie=UTF8&iwloc=&output=embed"
+                                id="mapa-interativo" 
+                                title="Localização do Irani & Toinho Self-Service de Caldinhos em Olinda/PE"
+                                style="width: 100%; height: 400px; border: 0; border-radius: var(--radius-xl);" 
+                                allowfullscreen="" 
+                                loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
+                        </div>
+                        <div style="margin-top: 2rem; text-align: center;">
+                            <h3 style="margin-bottom: 1rem;">Como Chegar</h3>
+                            <p style="color: var(--gray-600); margin-bottom: 1.5rem;">
+                                Estamos localizados próximo a entrada do bar da acerola e com fácil acesso.
+                            </p>
+                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+                                <div class="card" style="padding: 1.5rem; text-align: center; background: linear-gradient(135deg, rgba(204, 68, 75, 0.1), rgba(237, 117, 97, 0.1)); border: 2px solid rgba(204, 68, 75, 0.2);">
+                                    <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🎶</div>
+                                    <div style="font-size: 0.95rem; color: var(--gray-800);"><strong>Música ao Vivo</strong></div>
+                                </div>
+                                <div class="card" style="padding: 1.5rem; text-align: center; background: linear-gradient(135deg, rgba(255, 183, 77, 0.1), rgba(255, 154, 0, 0.1)); border: 2px solid rgba(255, 183, 77, 0.2);">
+                                    <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🅿️</div>
+                                    <div style="font-size: 0.95rem; color: var(--gray-800);"><strong>Estacionamento</strong></div>
+                                    <p style="font-size: 0.8rem; color: var(--gray-600); margin: 0.25rem 0 0 0;">Ao ar livre</p>
+                                </div>
+                                <div class="card" style="padding: 1.5rem; text-align: center;">
+                                    <div style="font-size: 2rem; color: var(--red-primary); margin-bottom: 0.5rem;">�</div>
+                                    <div style="font-size: 0.9rem;"><strong>Sem Taxas</strong><br>Extras</div>
+                                </div>
+                            </div>
+                            
+                            <div class="card" style="margin-top: 2rem; padding: 1.5rem; background: var(--gradient-hero); color: white;">
+                                <h3 style="color: white; margin-bottom: 1rem; text-align: center;">🎂 Promoção Aniversariante</h3>
+                                <div style="text-align: center; margin-bottom: 1rem;">
+                                    <div style="font-size: 3rem;">🍹🍲</div>
+                                    <h4 style="color: white; margin: 0.5rem 0;">1 Drink de Morango + 1 Caldinho GRÁTIS</h4>
+                                </div>
+                                <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: var(--radius-md); font-size: 0.9rem;">
+                                    <p style="margin: 0 0 0.5rem 0; color: rgba(255,255,255,0.9);"><strong>📋 Condições:</strong></p>
+                                    <div style="margin: 0; color: rgba(255,255,255,0.9);">
+                                        <p style="margin: 0.25rem 0;">Estar fazendo aniversário no dia</p>
+                                        <p style="margin: 0.25rem 0;">Apresentar documento com foto</p>
+                                        <p style="margin: 0.25rem 0;">Consumo mínimo de R$ 100,00</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="cliente-section" class="section" style="display: none;">
+            <div class="container">
+                <div style="text-align: center; margin-bottom: 3rem; padding: 2rem 0;">
+                    <h1>Área do Cliente</h1>
+                    <p style="font-size: 1.25rem; color: var(--gray-600);">
+                        Bem-vindo à sua área exclusiva!
+                    </p>
+                </div>
+                
+                <div class="client-dashboard">
+                    <div class="welcome-card card" style="margin-bottom: 2rem; text-align: center; background: var(--gradient-hero); color: white;">
+                        <div class="card-body" style="padding: 2rem;">
+                            <div style="font-size: 3rem; margin-bottom: 1rem;">👋</div>
+                            <h3 id="client-name" style="color: white; margin-bottom: 1rem;">Bem-vindo!</h3>
+                            <p style="color: rgba(255,255,255,0.9);">Agradecemos pela sua preferência ao Irani & Toinho</p>
+                        </div>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-bottom: 3rem;">
+                        <div class="card feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-utensils"></i>
+                            </div>
+                            <h3 class="feature-title">Fazer Pedido</h3>
+                            <p class="feature-description">Navegue pelo nosso cardápio e descubra os melhores caldinhos da região.</p>
+                            <button class="btn btn-primary" onclick="showSection('cardapio')" style="margin-top: 1rem;">
+                                <i class="fas fa-utensils"></i>
+                                Ver Cardápio
+                            </button>
+                        </div>
+                        
+                        <div class="card feature-card">
+                            <div class="feature-icon">
+                                <i class="fab fa-whatsapp"></i>
+                            </div>
+                            <h3 class="feature-title">Fazer Reserva</h3>
+                            <p class="feature-description">Reserve sua mesa via WhatsApp para garantir seu lugar no nosso ambiente acolhedor.</p>
+                            <button class="btn btn-secondary" disabled style="margin-top: 1rem; opacity: 0.6; cursor: not-allowed;">
+                                <i class="fab fa-whatsapp"></i>
+                                Em Desenvolvimento
+                            </button>
+                        </div>
+                        
+                        <div class="card feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <h3 class="feature-title">Como Chegar</h3>
+                            <p class="feature-description">Veja nossa localização e como chegar até o restaurante facilmente.</p>
+                            <button class="btn btn-primary" onclick="showSection('localizacao')" style="margin-top: 1rem;">
+                                <i class="fas fa-map-marker-alt"></i>
+                                Ver Localização
+                            </button>
+                        </div>
+                        
+                        <div class="card feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <h3 class="feature-title">Promoções</h3>
+                            <p class="feature-description">Confira nossas promoções especiais como a do aniversariante!</p>
+                            <button class="btn btn-secondary" disabled style="margin-top: 1rem; opacity: 0.6; cursor: not-allowed;">
+                                <i class="fas fa-gift"></i>
+                                Em Desenvolvimento
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="card" style="text-align: center; background: var(--gray-100); padding: 2rem;">
+                        <h3 style="color: var(--red-primary); margin-bottom: 1rem;">Informações de Contato</h3>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                            <div>
+                                <p><strong><i class="fas fa-phone"></i> Telefone:</strong><br>(81) 99618-2551</p>
+                            </div>
+                            <div>
+                                <p><strong><i class="fas fa-envelope"></i> Email:</strong><br>contato@irani-toinho.com.br</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="admin-section" class="section" style="display: none;">
+            <div class="container">
+                <div style="text-align: center; margin-bottom: 3rem; padding: 2rem 0;">
+                    <h1>🔒 Painel Administrativo</h1>
+                    <p style="font-size: 1.25rem; color: var(--gray-600);">
+                        Gerencie o cardápio e configurações do restaurante
+                    </p>
+                </div>
+                
+                <div class="admin-dashboard">
+                    <div class="welcome-card card" style="margin-bottom: 2rem; text-align: center; background: var(--gradient-primary); color: white;">
+                        <div class="card-body" style="padding: 2rem;">
+                            <div style="font-size: 3rem; margin-bottom: 1rem;">👨‍💼</div>
+                            <h3 id="admin-name" style="color: white; margin-bottom: 1rem;">Bem-vindo, Administrador!</h3>
+                            <p id="admin-email-display" style="color: rgba(255,255,255,0.9);">admin@teste.com.br</p>
+                            <button class="btn" style="background: rgba(255,255,255,0.2); color: white; margin-top: 1rem; border: 1px solid rgba(255,255,255,0.3);" onclick="logout()">
+                                <i class="fas fa-sign-out-alt"></i>
+                                Sair
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-bottom: 3rem;">
+                        <div class="card feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-utensils"></i>
+                            </div>
+                            <h3 class="feature-title">Gerenciar Cardápio</h3>
+                            <p class="feature-description">Adicione, edite ou remova pratos do cardápio do restaurante.</p>
+                            <button class="btn btn-primary" onclick="openModalAdminPanel()" style="margin-top: 1rem;">
+                                <i class="fas fa-edit"></i>
+                                Editar Cardápio
+                            </button>
+                        </div>
+                        
+                        <div class="card feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-chart-bar"></i>
+                            </div>
+                            <h3 class="feature-title">Relatórios</h3>
+                            <p class="feature-description">Visualize estatísticas e relatórios de vendas do restaurante.</p>
+                            <button class="btn btn-secondary" disabled style="margin-top: 1rem; opacity: 0.6; cursor: not-allowed;">
+                                <i class="fas fa-chart-line"></i>
+                                Em Desenvolvimento
+                            </button>
+                        </div>
+                        
+                        <div class="card feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-cog"></i>
+                            </div>
+                            <h3 class="feature-title">Configurações</h3>
+                            <p class="feature-description">Gerencie configurações gerais do sistema e restaurante.</p>
+                            <button class="btn btn-primary" disabled style="margin-top: 1rem; opacity: 0.6; cursor: not-allowed;">
+                                <i class="fas fa-cog"></i>
+                                Em Desenvolvimento
+                            </button>
+                        </div>
+                        
+                        <div class="card feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <h3 class="feature-title">Gerenciar Usuários</h3>
+                            <p class="feature-description">Controle de usuários e permissões do sistema.</p>
+                            <button class="btn btn-secondary" disabled style="margin-top: 1rem; opacity: 0.6; cursor: not-allowed;">
+                                <i class="fas fa-user-cog"></i>
+                                Em Desenvolvimento
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <div class="modal" id="auth-modal">
+        <div class="modal-content">
+            <div class="card">
+                <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
+                    <h3>Acesso ao Sistema</h3>
+                    <button onclick="closeAuthModal()" style="background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; padding: 0.5rem;" title="Fechar">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="card-body">
+                    <div style="margin-bottom: 2rem;">
+                        <div class="form-group">
+                            <label class="form-label" for="login-email">Email</label>
+                            <input type="email" id="login-email" class="form-input" placeholder="Digite seu email" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="login-senha">Senha</label>
+                            <input type="password" id="login-senha" class="form-input" placeholder="Digite sua senha" required>
+                        </div>
+                        <button type="button" class="btn btn-primary" style="width: 100%; margin-bottom: 1rem;" id="login-button">
+                            <i class="fas fa-sign-in-alt"></i>
+                            Entrar
+                        </button>
+                        <div style="text-align: center; padding: 1rem; background: var(--gray-100); border-radius: var(--radius-md); font-size: 0.85rem; color: var(--gray-600);">
+                            <p style="margin: 0 0 0.5rem 0;"><strong>🔒 Credenciais de Teste:</strong></p>
+                            <p style="margin: 0.25rem 0;"><strong>Admin:</strong> admin@teste.com.br / admin123</p>
+                            <p style="margin: 0.25rem 0;"><strong>Cliente:</strong> cliente@teste.com.br / cliente123</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="admin-panel-modal">
+        <div class="admin-panel" id="admin-panel">
+            <div class="admin-header">
+                <button class="logout-btn" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Sair
+                </button>
+                <h2>🔒 Painel Administrativo</h2>
+                <p>Gerencie o cardápio e produtos do restaurante</p>
+            </div>
+            <div class="admin-content">
+                <div class="user-info">
+                    <h3 id="admin-user-name">👨‍💼 Administrador</h3>
+                    <p id="admin-user-email">admin@teste.com.br</p>
+                </div>
+                <div class="admin-grid">
+                    <div class="admin-section">
+                        <h3>Adicionar Produto</h3>
+                        <form id="admin-form">
+                            <div class="form-group">
+                                <label class="form-label" for="admin-produto-nome">Nome do Produto</label>
+                                <input type="text" id="admin-produto-nome" class="form-input" placeholder="Ex: Caldinho de Feijão" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="admin-produto-preco">Preço (R$)</label>
+                                <input type="number" id="admin-produto-preco" class="form-input" placeholder="19.90" step="0.01" min="0" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="admin-produto-categoria">Categoria</label>
+                                <select id="admin-produto-categoria" class="form-select" required>
+                                    <option value="">Selecione uma categoria</option>
+                                    <option value="caldinho">Caldinho</option>
+                                    <option value="petisco">Petisco</option>
+                                    <option value="bebida">Bebida</option>
+                                    <option value="sobremesa">Sobremesa</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="admin-produto-descricao">Descrição</label>
+                                <textarea id="admin-produto-descricao" class="form-textarea" placeholder="Descreva o produto..."></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary" style="width: 100%;">
+                                <i class="fas fa-plus"></i>
+                                Adicionar Produto
+                            </button>
                         </form>
                     </div>
-                </section>
-            </div>
-        </main>
-    </section>
-
-    <!-- SEÇÃO MENU -->
-    <section id="menu-section" class="section">
-        <div class="wrapper">
-            <header>
-                <img src="./assets/luego.png" alt="Logo" srcset="" />
-            </header>
-            <nav class="menu-nav">
-                <a href="#bebidas">Bebidas</a>
-                <a href="#caldinhos">Caldinhos</a>
-                <a href="#porcoes">Porções</a>
-            </nav>
-            <main>
-                <h1>Menu Completo</h1>
-                <form action="" method="get">
-                    <input type="search" name="" id="menu-search" placeholder="Pesquisar produto..." />
-                </form>
-                <div class="menu-container">
-                    <div class="menu-item">
-                        <div class="menu-item-description">
-                            <h2>Caldinho de Camarão</h2>
-                            <p>
-                                Feijão-preto, alho dourado no azeite, cebola roxa,
-                                pimentão-verde, vermelho em cubos, bacon e calabresa.
-                            </p>
-                            <span>R$ 19,99</span>
+                    <div class="admin-section">
+                        <h3>Produtos Cadastrados</h3>
+                        <div class="form-group">
+                            <input type="search" class="form-input" placeholder="Pesquisar produtos..." id="admin-search">
                         </div>
-                        <div class="item-image">
-                            <img src="./assets/caldinho1.jpg" alt="Caldinho de Camarão" />
+                        <div id="admin-produtos" style="max-height: 400px; overflow-y: auto; background: white; border-radius: var(--radius-md); padding: var(--space-md);">
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <section id="admin" class="section" style="display: none; min-height: 100vh; padding: 2rem 0; background: #f8f9fa;">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 style="color: #dc3545; font-weight: bold; margin-bottom: 1rem;">🔧 Painel do Administrador</h2>
+                <p style="color: #6c757d; font-size: 1.1rem;">Gerencie o restaurante e visualize estatísticas</p>
+            </div>
+            
+            <div class="row mt-5">
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm" style="border-left: 4px solid #ffc107;">
+                        <div class="card-body text-center">
+                            <i class="fas fa-chart-bar fa-3x text-warning mb-3"></i>
+                            <h5>Vendas do Dia</h5>
+                            <h3 class="text-success">R$ 2.340,50</h3>
+                            <p class="text-muted">132 pedidos realizados</p>
                         </div>
                     </div>
-                    <!-- Mais itens serão adicionados aqui -->
                 </div>
-            </main>
+                
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm" style="border-left: 4px solid #007bff;">
+                        <div class="card-body text-center">
+                            <i class="fas fa-users fa-3x text-primary mb-3"></i>
+                            <h5>Clientes Ativos</h5>
+                            <h3 class="text-info">47</h3>
+                            <p class="text-muted">Online agora</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm" style="border-left: 4px solid #dc3545;">
+                        <div class="card-body text-center">
+                            <i class="fas fa-utensils fa-3x text-danger mb-3"></i>
+                            <h5>Pedidos Pendentes</h5>
+                            <h3 class="text-warning">8</h3>
+                            <p class="text-muted">Aguardando preparo</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-dark text-white">
+                            <h5 class="mb-0">⚡ Gerenciamento Rápido</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-3 mb-2">
+                                    <button class="btn btn-warning btn-block">
+                                        <i class="fas fa-edit"></i> Editar Cardápio
+                                    </button>
+                                </div>
+                                <div class="col-md-3 mb-2">
+                                    <button class="btn btn-info btn-block">
+                                        <i class="fas fa-list"></i> Ver Pedidos
+                                    </button>
+                                </div>
+                                <div class="col-md-3 mb-2">
+                                    <button class="btn btn-success btn-block">
+                                        <i class="fas fa-plus"></i> Novo Produto
+                                    </button>
+                                </div>
+                                <div class="col-md-3 mb-2">
+                                    <button class="btn btn-danger btn-block" onclick="logout()">
+                                        <i class="fas fa-sign-out-alt"></i> Sair
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- SEÇÃO ADMIN -->
-    <section id="admin-section" class="section">
-        <header>
-            <h1>Controle de cardápio</h1>
-        </header>
-
-        <main class="container">
-            <form id="form-cardapio">
-                <input type="hidden" id="id-edicao" />
-                <input type="text" placeholder="Nome" id="nome" required />
-                <input type="text" placeholder="Preço" id="preco" required />
-                <div class="select-container">
-                    <select id="categoria" required>
-                        <option value="">Categoria</option>
-                        <option value="Bebida">Bebida</option>
-                        <option value="Caldinho">Caldinho</option>
-                        <option value="Petisco">Petisco</option>
-                    </select>
-                    <i class="fi fi-br-angle-small-down"></i>
+    <section id="cliente" class="section" style="display: none; min-height: 100vh; padding: 2rem 0; background: #f8f9fa;">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 style="color: #28a745; font-weight: bold; margin-bottom: 1rem;">👋 Área do Cliente</h2>
+                <p style="color: #6c757d; font-size: 1.1rem;">Faça seus pedidos e acompanhe seu histórico</p>
+            </div>
+            
+            <div class="row mt-5">
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100 shadow-sm" style="border-left: 4px solid #28a745;">
+                        <div class="card-body text-center">
+                            <i class="fas fa-shopping-cart fa-3x text-success mb-3"></i>
+                            <h5>Fazer Pedido</h5>
+                            <p class="text-muted">Escolha seus pratos favoritos do nosso cardápio</p>
+                            <button class="btn btn-success btn-lg" onclick="showSection('menu')">
+                                <i class="fas fa-utensils"></i> Ver Cardápio
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <input type="text" placeholder="Descrição" id="descricao" required />
-                <label class="upload-btn">
-                    Selecionar imagem
-                    <input type="file" id="imagem" accept="image/*" hidden />
-                </label>
-                <div id="nome-imagem-anexo" class="nome-anexo"></div>
-                <button type="submit" class="btn-cadastrar">Cadastrar</button>
-            </form>
-
-            <div id="busca">
-                <button class="lupa">
-                    <i class="fi fi-br-search"></i>
-                </button>
-                <input type="search" placeholder="digite o que procura" />
-                <button class="clear-btn">
-                    <i class="fi fi-br-cross-small"></i>
-                </button>
+                
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100 shadow-sm" style="border-left: 4px solid #007bff;">
+                        <div class="card-body text-center">
+                            <i class="fas fa-history fa-3x text-primary mb-3"></i>
+                            <h5>Meus Pedidos</h5>
+                            <p class="text-muted">Acompanhe o status dos seus pedidos</p>
+                            <button class="btn btn-primary btn-lg">
+                                <i class="fas fa-list"></i> Ver Histórico
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <div class="tabela-cardapio">
-                <div id="lista-cardapio"></div>
+            
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-warning text-dark">
+                            <h5 class="mb-0">🛒 Pedido Atual</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="text-center py-4">
+                                <i class="fas fa-shopping-cart fa-2x text-muted mb-3"></i>
+                                <p class="text-muted">Você ainda não tem itens no carrinho</p>
+                                <button class="btn btn-warning" onclick="showSection('menu')">
+                                    <i class="fas fa-plus"></i> Adicionar Itens
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </main>
-    </section>
-
-    <!-- SEÇÃO GALERIA -->
-    <section id="galeria-section" class="section">
-        <div class="carousel-container">
-            <div class="carousel" id="carousel">
-                <img src="https://via.placeholder.com/800x400?text=Imagem+1" alt="img_1">
-                <img src="https://via.placeholder.com/800x400?text=Imagem+2" alt="img_2">
-                <img src="https://via.placeholder.com/800x400?text=Imagem+3" alt="img_3">
-                <img src="https://via.placeholder.com/800x400?text=Imagem+4" alt="img_4">
+            
+            <div class="row mt-4">
+                <div class="col-12 text-center">
+                    <button class="btn btn-outline-danger btn-lg" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i> Sair
+                    </button>
+                </div>
             </div>
         </div>
-        <div class="dots" id="dots"></div>
     </section>
+    
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="./assets/luego.png" alt="Logo Irani & Toinho" class="footer-logo-img">
+                        <div class="footer-logo-text">
+                            <div class="footer-logo-main">Irani & Toinho</div>
+                            <div class="footer-logo-sub">Self-Service de Caldinhos</div>
+                        </div>
+                    </div>
+                    <p class="footer-description">
+                        Há 10 anos servindo os melhores caldinhos da região metropolitana do Recife com receitas tradicionais e muito carinho.
+                    </p>
+                    <div class="footer-social">
+                        <a href="https://www.instagram.com/selfservicedecaldinhos/" target="_blank" class="social-link">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://wa.me/5581996182551" target="_blank" class="social-link">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="mailto:contato@irani-toinho.com.br" class="social-link">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4 class="footer-title">Cardápio</h4>
+                    <ul class="footer-links">
+                        <li><button type="button" onclick="showSection('cardapio')">Caldinhos</button></li>
+                        <li><button type="button" onclick="showSection('cardapio')">Petiscos</button></li>
+                        <li><button type="button" onclick="showSection('cardapio')">Bebidas</button></li>
+                        <li><button type="button" onclick="showSection('cardapio')">Ver Cardápio Completo</button></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4 class="footer-title">Links Úteis</h4>
+                    <ul class="footer-links">
+                        <li><button type="button" onclick="showSection('sobre')">Nossa História</button></li>
+                        <li><button type="button" onclick="showSection('localizacao')">Como Chegar</button></li>
+                        <li><button type="button" onclick="openAuthModal()">Área do Cliente</button></li>
+                        <li><a href="https://wa.me/5581996182551?text=Olá!%20Gostaria%20de%20fazer%20uma%20reserva%20no%20Irani%20%26%20Toinho" target="_blank">Reservas</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4 class="footer-title">Contato</h4>
+                    <div class="footer-contact">
+                        <p><i class="fas fa-map-marker-alt"></i> Estr. Lygia Gomes da Silva, 49<br>Ouro Preto - Olinda/PE</p>
+                        <p><i class="fas fa-phone"></i> (81) 99618-2551</p>
+                        <p><i class="fas fa-envelope"></i> contato@irani-toinho.com.br</p>
+                        <p><i class="fas fa-clock"></i> Seg a Sáb: 17h às 22h<br><span style="color: var(--white);">Qua e Dom: Fechado</span></p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p style="color: var(--white);">&copy; 2025 Irani & Toinho Self-Service de Caldinhos. Todos os direitos reservados.</p>
+                    <div class="footer-dev">
+                        <div class="dev-credits">
+                            <span class="dev-label">Desenvolvido por:</span>
+                            <div class="dev-names">
+                                <span>Alexsandro Silva</span> • 
+                                <span>Jhesimiel Nascimento</span> • 
+                                <span>Júlio Cesar</span> • 
+                                <span>Renan Freitas</span> • 
+                                <span>Victor Pessoa</span>
+                            </div>
+                        </div>
+                        <p style="margin-top: var(--space-sm); margin-bottom: 0;">
+                            <span style="color: var(--yellow-primary);">com ❤️ para levar sabor à sua mesa</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
 
-    <!-- Scripts -->
-    <script src="./js/login.js"></script>
-    <script src="./js/cadastro.js"></script>
-    <script src="./js/puremask.min.js"></script>
-    <script src="./public/Script.js"></script>
-    <script src="./script.js"></script>
+    <script src="./js/navigation.js"></script>
+    <script src="./js/auth.js"></script>
+    <script src="./js/menu.js"></script>
+    <script src="./js/admin.js"></script>
+    <script src="./js/app.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     
     <script>
-        // Função para mostrar seções
-        function showSection(sectionName) {
-            // Esconder todas as seções
-            const sections = document.querySelectorAll('.section');
-            sections.forEach(section => section.classList.remove('active'));
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('Script de login carregado!');
+        
+        AOS.init({
+            duration: 1000,
+            offset: 100,
+            once: false,
+            mirror: true
+        });
+        
+        const observerOptions = {
+            threshold: 0.5,
+            rootMargin: '0px'
+        };
+        
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counter = entry.target;
+                    const targetValue = parseFloat(counter.getAttribute('data-counter'));
+                    const suffix = counter.getAttribute('data-suffix') || '';
+                    
+                    if (counter.classList.contains('counter-animated')) {
+                        counter.classList.remove('counter-animated');
+                    }
+                    
+                    counter.classList.add('counter-animated');
+                    
+                    let currentValue = 0;
+                    const increment = targetValue / 60;
+                    
+                    const timer = setInterval(() => {
+                        currentValue += increment;
+                        if (currentValue >= targetValue) {
+                            currentValue = targetValue;
+                            clearInterval(timer);
+                        }
+                        
+                        if (suffix === 'k+') {
+                            counter.textContent = Math.floor(currentValue) + suffix;
+                        } else if (suffix === '⭐') {
+                            counter.textContent = currentValue.toFixed(1) + suffix;
+                        } else if (suffix === '+') {
+                            counter.textContent = Math.floor(currentValue) + suffix;
+                        } else {
+                            counter.textContent = Math.floor(currentValue);
+                        }
+                    }, 16);
+                } else {
+                    const counter = entry.target;
+                    if (counter.classList.contains('counter-animated')) {
+                        const targetValue = parseFloat(counter.getAttribute('data-counter'));
+                        const suffix = counter.getAttribute('data-suffix') || '';
+                        
+                        if (suffix === 'k+') {
+                            counter.textContent = targetValue + suffix;
+                        } else if (suffix === '⭐') {
+                            counter.textContent = targetValue + suffix;
+                        } else if (suffix === '+') {
+                            counter.textContent = targetValue + suffix;
+                        } else {
+                            counter.textContent = targetValue;
+                        }
+                        counter.classList.remove('counter-animated');
+                    }
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('[data-counter]').forEach(counter => {
+            counterObserver.observe(counter);
+        });
+        
+        window.filterMenu = function(searchTerm) {
+            const menuItems = document.querySelectorAll('.menu-item');
+            const term = searchTerm.toLowerCase().trim();
             
-            // Mostrar seção selecionada
-            const targetSection = document.getElementById(sectionName + '-section');
-            if (targetSection) {
-                targetSection.classList.add('active');
-            }
-            
-            // Efeito visual no botão clicado (evitar erro se event não existir)
-            if (typeof event !== 'undefined' && event.target) {
-                const buttons = document.querySelectorAll('#links-icone a');
-                buttons.forEach(btn => btn.classList.remove('nav-active'));
-                event.target.closest('a').classList.add('nav-active');
-            }
+            menuItems.forEach(item => {
+                const title = item.querySelector('.menu-title')?.textContent.toLowerCase() || '';
+                const description = item.querySelector('.menu-description')?.textContent.toLowerCase() || '';
+                const tags = Array.from(item.querySelectorAll('.menu-tag')).map(tag => tag.textContent.toLowerCase()).join(' ');
+                
+                const matches = !term || 
+                               title.includes(term) || 
+                               description.includes(term) || 
+                               tags.includes(term);
+                
+                if (matches) {
+                    item.style.display = 'block';
+                    item.style.visibility = 'visible';
+                    item.style.opacity = '1';
+                } else {
+                    item.style.display = 'none';
+                    item.style.visibility = 'hidden';
+                    item.style.opacity = '0';
+                }
+            });
+        };
+        
+        const loginButton = document.getElementById('login-button');
+        if (loginButton) {
+            console.log('Botão de login encontrado!');
+            loginButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                console.log('Botão de login clicado!');
+                
+                const email = document.getElementById('login-email').value;
+                const senha = document.getElementById('login-senha').value;
+                
+                console.log('Email:', email, 'Senha:', senha);
+                
+                if (!email || !senha) {
+                    alert('Preencha todos os campos!');
+                    return;
+                }
+                
+                const users = {
+                    'admin@teste.com.br': {
+                        senha: 'admin123',
+                        type: 'admin',
+                        name: 'Administrador'
+                    },
+                    'cliente@teste.com.br': {
+                        senha: 'cliente123', 
+                        type: 'cliente',
+                        name: 'Cliente'
+                    }
+                };
+                
+                if (users[email] && users[email].senha === senha) {
+                    console.log('Login válido! Tipo:', users[email].type);
+                    
+                    const modal = document.getElementById('loginModal');
+                    if (modal) {
+                        const modalInstance = bootstrap.Modal.getInstance(modal);
+                        if (modalInstance) {
+                            modalInstance.hide();
+                        } else {
+                            modal.style.display = 'none';
+                        }
+                    }
+                    
+                    const sections = ['home', 'menu', 'sobre', 'localizacao'];
+                    sections.forEach(id => {
+                        const section = document.getElementById(id);
+                        if (section) {
+                            section.style.display = 'none';
+                        }
+                    });
+                    
+                    if (users[email].type === 'admin') {
+                        console.log('Redirecionando para admin');
+                        const adminSection = document.getElementById('admin');
+                        if (adminSection) {
+                            adminSection.style.display = 'block';
+                            window.scrollTo(0, 0);
+                        }
+                    } else {
+                        console.log('Redirecionando para cliente');
+                        const clienteSection = document.getElementById('cliente');
+                        if (clienteSection) {
+                            clienteSection.style.display = 'block';
+                            window.scrollTo(0, 0);
+                        }
+                    }
+                    
+                    const authButton = document.getElementById('authButton');
+                    if (authButton) {
+                        authButton.innerHTML = `<i class="fas fa-user"></i> ${users[email].name}`;
+                    }
+                    
+                    alert(`Bem-vindo, ${users[email].name}!`);
+                    
+                } else {
+                    console.log('Login inválido');
+                    alert('Email ou senha inválidos!');
+                }
+            });
+        } else {
+            console.log('Botão de login NÃO encontrado!');
+        }
+    });
+    
+    function logout() {
+        console.log('Logout realizado!');
+        
+        const adminSection = document.getElementById('admin');
+        const clienteSection = document.getElementById('cliente');
+        if (adminSection) adminSection.style.display = 'none';
+        if (clienteSection) clienteSection.style.display = 'none';
+        
+        const homeSection = document.getElementById('home');
+        if (homeSection) {
+            homeSection.style.display = 'block';
+            window.scrollTo(0, 0);
         }
         
-        // Inicialização
-        document.addEventListener('DOMContentLoaded', function() {
-            // Mostrar seção login por padrão
-            showSection('login');
-        });
+        const authButton = document.getElementById('authButton');
+        if (authButton) {
+            authButton.innerHTML = '<i class="fas fa-user"></i> Entrar';
+        }
+        
+        alert('Logout realizado com sucesso!');
+    }
     </script>
 </body>
 </html>
