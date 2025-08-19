@@ -463,6 +463,11 @@ p {
     position: relative;
 }
 
+.address p {
+    font-size: 1rem;
+    margin: 0.25rem 0;
+}
+
 .card:hover {
     transform: translateY(-8px);
     box-shadow: var(--shadow-xl);
@@ -976,9 +981,33 @@ p {
 
 .menu-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    grid-template-columns: 1fr 1fr;
     gap: var(--space-xl);
     padding: var(--space-xl);
+}
+
+/* --- Botão flutuante exibido apenas em mobile e ao rolar até a section menu-grid --- */
+.floating-scroll-btn {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 1000;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--red-primary);
+    color: #fff;
+    font-size: 2rem;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    transition: background 0.2s;
+}
+
+.floating-scroll-btn:hover {
+    background: var(--red-dark);
 }
 
 .menu-card {
@@ -1252,6 +1281,9 @@ p {
     gap: var(--space-3xl);
     margin-bottom: var(--space-3xl);
 }
+.footer-description {
+    text-align: center;
+}
 
 .footer-section h4.footer-title {
     color: var(--yellow-primary);
@@ -1400,11 +1432,21 @@ p {
     line-height: 1.3;
 }
 
+@media (min-width: 769px) {
+    .floating-scroll-btn {
+        display: none !important;
+    }
+}
+
 @media (max-width: 768px) {
+
+    /* Pai flexível */
     .footer-content {
-        grid-template-columns: 1fr;
-        gap: var(--space-xl);
-        text-align: center;
+        display: flex;
+        flex-wrap: wrap;
+        /* permite que os elementos quebrem linha em telas pequenas */
+        gap: 1.5rem;
+        /* espaçamento entre as seções */
     }
 
     .footer-logo {
@@ -1424,10 +1466,61 @@ p {
         text-align: left;
     }
 
+    /* Cardápio e Links Úteis lado a lado */
+    .footer-content> :nth-child(2),
+    .footer-content> :nth-child(3),
+    .footer-content> :nth-child(4) {
+        flex: 1 1 250px;
+        /* cada um ocupa metade do espaço ou mínimo de 250px */
+        min-width: 200px;
+        /* evita que fiquem muito estreitos em mobile */
+        text-align: center;
+    }
+
+    /* Mantém as outras seções (logo, contato) em largura completa */
+    .footer-content> :nth-child(1){
+        flex: 1 1 100%;
+    }
+
     .dev-names {
         line-height: 1.5 !important;
         word-spacing: 2px;
     }
+
+    .menu-grid {
+        grid-template-columns: 1fr 1fr !important;
+    }
+
+    .menu-grid.one-column {
+        grid-template-columns: 1fr !important;
+    }
+
+    #toggle-grid-btn {
+        display: block !important;
+    }
+
+    .address p {
+        font-size: 1.1rem;
+    }
+
+    .card-body {
+        grid-template-columns: 2fr;
+    }
+
+    .parking-icon .icon {
+        font-size: 1.2rem;
+    }
+
+    .parking-icon {
+        max-width: 100%;
+        margin-top: 1rem;
+    }
+
+
+    .btn-container button {
+        width: 100%;
+    }
+
 
     .schedule {
         display: grid;
@@ -1439,5 +1532,27 @@ p {
         display: inline-block;
         margin-right: 8px;
         /* espaçamento entre dia e horário */
+    }
+
+    .contacts {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-around;
+        width: 100%;
+    }
+
+    .contacts button {
+        flex: 1 1 45%;
+        max-width: 200px;
+    }
+}
+
+/* Ajuste opcional: em telas muito pequenas (mobile) */
+@media (max-width: 500px) {
+
+    .footer-content> :nth-child(2),
+    .footer-content> :nth-child(3) {
+        flex: 1 1 100%;
+        /* empilha Cardápio e Links Úteis no mobile */
     }
 }
