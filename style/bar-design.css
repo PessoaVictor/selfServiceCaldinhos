@@ -61,7 +61,7 @@
     box-sizing: border-box;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 768px) and (max-width: 391px) {
 
     html,
     body {
@@ -765,6 +765,7 @@ p {
 
     .feature-card {
         border-radius: var(--radius-lg) !important;
+        min-width: 20rem;
     }
 
     .form-input,
@@ -842,15 +843,17 @@ p {
     }
 
     .menu-grid {
-        grid-template-columns: 1fr;
-        padding: var(--space-md);
+        grid-template-columns: 1fr !important;
         gap: var(--space-lg) !important;
+        padding: var(--shadow-lg);
     }
 
     .menu-grid .card,
     .menu-grid .menu-card {
         border-radius: var(--radius-xl) !important;
         overflow: hidden !important;
+        box-sizing: border-box;
+        width: 100%;
     }
 
     .container div[style*="margin-top: 2rem"] {
@@ -1000,14 +1003,10 @@ p {
 
 .menu-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: var(--space-xl);
     padding: var(--space-xl);
     align-items: stretch;
-}
-
-.menu-item {
-    height: 100%;
 }
 
 .menu-card {
@@ -1024,30 +1023,6 @@ p {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-}
-
-/* --- Botão flutuante exibido apenas em mobile e ao rolar até a section menu-grid --- */
-.floating-scroll-btn {
-    position: fixed;
-    bottom: 2rem;
-    right: 2rem;
-    z-index: 1000;
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    background: var(--red-primary);
-    color: #fff;
-    font-size: 2rem;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: none;
-    transition: background 0.2s;
-}
-
-.floating-scroll-btn:hover {
-    background: var(--red-dark);
 }
 
 .menu-card {
@@ -1169,6 +1144,12 @@ p {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 var(--space-xl);
+}
+
+.container-cards{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
 }
 
 .text-center {
@@ -1326,6 +1307,12 @@ p {
     text-align: center;
 }
 
+.footer-section{
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
 .footer-section h4.footer-title {
     color: var(--yellow-primary);
     font-family: var(--font-secondary);
@@ -1431,10 +1418,18 @@ p {
     gap: var(--space-sm);
 }
 
+.footer-contact p:nth-child(4){
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 0.25rem;
+}
+
 .footer-contact i {
     color: var(--yellow-primary);
     margin-top: 2px;
     min-width: 16px;
+    flex-shrink: 0;
 }
 
 .footer-bottom {
@@ -1472,6 +1467,53 @@ p {
     font-size: 0.8rem;
     line-height: 1.3;
 }
+
+@media (max-width: 1170px) and (min-width:769px) {
+    .features-grid {
+        display: flex;
+        gap: var(--space-lg);
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 1rem;
+    }
+
+    .feature-card {
+        border-radius: var(--radius-lg);
+        padding: 1.5rem;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        width: 20rem;
+        flex: 0 0 auto;
+        scroll-snap-align: start;
+    }
+
+    /* Esconde a barra de rolagem */
+    .features-grid::-webkit-scrollbar {
+        display: none;
+    }
+
+    .features-grid {
+        scrollbar-width: none;
+    }
+
+    .menu-grid {
+        display: flex;
+        gap: var(--space-lg);
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 1rem;
+    }
+
+    .menu-grid .menu-card {
+        flex: 0 0 auto;
+        min-width: 20rem;
+        max-width: 50rem;
+        scroll-snap-align: start;
+    }
+}
+
 
 @media (max-width: 768px) {
 
@@ -1520,14 +1562,6 @@ p {
     .dev-names {
         line-height: 1.5 !important;
         word-spacing: 2px;
-    }
-
-    .menu-grid {
-        grid-template-columns: 1fr 1fr !important;
-    }
-
-    .menu-grid.one-column {
-        grid-template-columns: 1fr !important;
     }
 
     .address p {
@@ -1629,11 +1663,9 @@ p {
 
     .feature-card {
         flex: 0 0 80%;
-        /* Cada card ocupa 80% da tela */
         scroll-snap-align: start;
-        /* Alinha cards no início */
         border-radius: 8px;
-        /* Opcional, só pra estilizar */
+        min-width: 20rem;
     }
 
     .features-grid {
@@ -1801,5 +1833,8 @@ p {
     .footer-content> :nth-child(3) {
         flex: 1 1 100%;
         /* empilha Cardápio e Links Úteis no mobile */
+    }
+    .footer-contact> :nth-child(4){
+        text-align: center;
     }
 }
