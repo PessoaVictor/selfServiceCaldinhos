@@ -93,6 +93,15 @@
 
     .feature-card {
         padding: var(--space-xl) !important;
+        border-radius: var(--radius-lg) !important;
+        min-width: 10rem;
+        min-height: 10rem;
+        flex: 0 0 80%;
+        /* Cada card ocupa 80% da tela */
+        scroll-snap-align: start;
+        /* Alinha cards no início */
+        border-radius: 8px;
+        /* Opcional, só pra estilizar */
     }
 
     .bar-header {
@@ -763,11 +772,6 @@ p {
         border-radius: var(--radius-xl) var(--radius-xl) 0 0 !important;
     }
 
-    .feature-card {
-        border-radius: var(--radius-lg) !important;
-        min-width: 20rem;
-    }
-
     .form-input,
     .form-textarea,
     .form-select {
@@ -912,6 +916,8 @@ p {
 }
 
 .modal-content {
+    display: flex;
+    flex-direction: column;
     background: var(--white);
     border-radius: var(--radius-xl);
     max-width: 500px;
@@ -1146,7 +1152,7 @@ p {
     padding: 0 var(--space-xl);
 }
 
-.container-cards{
+.container-cards {
     display: grid;
     grid-template-columns: 1fr;
     gap: 2rem;
@@ -1307,7 +1313,7 @@ p {
     text-align: center;
 }
 
-.footer-section{
+.footer-section {
     display: flex;
     flex-flow: column;
     align-items: center;
@@ -1418,7 +1424,7 @@ p {
     gap: var(--space-sm);
 }
 
-.footer-contact p:nth-child(4){
+.footer-contact p:nth-child(4) {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
@@ -1631,18 +1637,21 @@ p {
         scroll-behavior: smooth;
     }
 
-    .feature-card {
-        flex: 0 0 80%;
-        /* Cada card ocupa 80% da tela */
-        scroll-snap-align: start;
-        /* Alinha cards no início */
-        border-radius: 8px;
-        /* Opcional, só pra estilizar */
-    }
 
     .features-grid {
         scroll-snap-type: x mandatory;
         /* Ativa o snapping horizontal */
+    }
+
+    .modal-content .card .card-body .btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 !important;
+    }
+
+    .card-body div>:nth-child(4) {
+        margin-top: 2rem;
     }
 }
 
@@ -1659,20 +1668,32 @@ p {
         padding-bottom: 1rem;
         /* Dá espaço para scrollbar */
         scroll-behavior: smooth;
+        scroll-snap-align: center;
     }
 
     .feature-card {
         flex: 0 0 80%;
         scroll-snap-align: start;
         border-radius: 8px;
-        min-width: 20rem;
+        max-width: 3rem;
+        font-size: xx-small;
+        padding: 1rem 0.5rem !important;
+    }
+
+    .feature-card .feature-icon {
+        font-size: 1rem;
+        max-width: 2rem;
+        max-height: 2rem;
+    }
+
+    .feature-card h3 {
+        font-size: x-small;
     }
 
     .features-grid {
         scroll-snap-type: x mandatory;
-        /* Ativa o snapping horizontal */
+        overflow-y: hidden;
     }
-
 
     /* -- Cardápio -- */
     .menu-grid {
@@ -1834,7 +1855,51 @@ p {
         flex: 1 1 100%;
         /* empilha Cardápio e Links Úteis no mobile */
     }
-    .footer-contact> :nth-child(4){
+
+    .footer-contact> :nth-child(4) {
         text-align: center;
+    }
+
+    .modal-content {
+        background-color: transparent;
+    }
+
+    .container-cards .card {
+        padding: 1rem !important;
+    }
+
+    .container-cards .card .card-content {
+        padding: 0 !important;
+    }
+
+    .card-content p {
+        width: 100%;
+        font-size: 0.85rem;
+        line-height: 1.3;
+        word-break: break-word;
+    }
+
+    .card-content iframe {
+        width: 100%;
+        min-height: 180px;
+        max-width: 100%;
+        border-radius: 8px;
+    }
+
+    .modal-content .card {
+        padding: 0 !important;
+    }
+
+    .modal-content .card .card-body div {
+        grid-template-columns: 1fr;
+
+    }
+
+    /* -- button enter -- */
+    .modal-content .card .card-body .btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 !important;
     }
 }
